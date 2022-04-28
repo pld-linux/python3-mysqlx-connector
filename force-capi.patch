@@ -1,8 +1,8 @@
 --- mysql-connector-python-8.0.23/cpydist/__init__.py~	2020-12-16 07:04:09.000000000 +0100
 +++ mysql-connector-python-8.0.23/cpydist/__init__.py	2022-04-28 14:15:47.843105028 +0200
-@@ -107,7 +107,7 @@ class BaseCommand(Command):
+@@ -112,7 +112,7 @@ class BaseCommand(Command):
      user_options = COMMON_USER_OPTIONS + CEXT_OPTIONS
-     boolean_options = ["debug", "byte_code_only", "keep-temp"]
+     boolean_options = ["debug", "byte_code_only", "keep_temp", "skip_vendor"]
  
 -    with_mysql_capi = None
 +    with_mysql_capi = "/usr"
