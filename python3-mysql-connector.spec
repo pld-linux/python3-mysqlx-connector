@@ -10,17 +10,18 @@ Summary(pl.UTF-8):	Protokół kliencki MySQL zaimplementowany w Pythonie
 Name:		python3-%{pname}
 # check documentation to see which version is GA (we don't want devel releases)
 # https://dev.mysql.com/downloads/connector/python/
-Version:	8.0.29
+Version:	8.0.33
 Release:	1
 License:	GPL v2
 Group:		Libraries/Python
 Source0:	http://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-%{version}-src.tar.gz
-# Source0-md5:	445eb59d7a9fdff424023a381b5567ee
+# Source0-md5:	97b96f27a08aff863a7fb4a15c8bcdd7
 #Source0:	https://pypi.debian.net/mysql-connector-python/mysql-connector-python-%{version}.tar.gz
 Patch0:		force-capi.patch
 Patch1:		tests.patch
+Patch2:		build.patch
 URL:		http://dev.mysql.com/doc/connector-python/en/
-BuildRequires:	mysql-devel >= 8.0
+BuildRequires:	mysql8.0-devel
 BuildRequires:	protobuf-devel >= 3.0.0
 BuildRequires:	python3-devel
 BuildRequires:	python3-modules
@@ -49,6 +50,7 @@ biblioteki MySQL-a, ani żadna kompilacja.
 %setup -q -n mysql-connector-python-%{version}-src
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 export MYSQLXPB_PROTOC=%{_bindir}/protoc
@@ -81,7 +83,6 @@ export MYSQLXPB_PROTOBUF_LIB_DIR=%{_libdir}
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%files -n python3-%{pname}
 %defattr(644,root,root,755)
 %doc CHANGES.txt README.txt
 %attr(755,root,root) %{py3_sitedir}/_mysql_connector.cpython-*.so
@@ -91,6 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py3_sitedir}/mysql/__pycache__
 %{py3_sitedir}/mysql/__pycache__/*.py[co]
 %dir %{py3_sitedir}/mysql/connector
+%{py3_sitedir}/mysql/connector/py.typed
 %{py3_sitedir}/mysql/connector/*.py
 %dir %{py3_sitedir}/mysql/connector/__pycache__
 %{py3_sitedir}/mysql/connector/__pycache__/*.py[co]
@@ -106,7 +108,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/mysql/connector/locales/eng/*.py
 %dir %{py3_sitedir}/mysql/connector/locales/eng/__pycache__
 %{py3_sitedir}/mysql/connector/locales/eng/__pycache__/*.py[co]
+%{py3_sitedir}/mysql/connector/plugins
 %dir %{py3_sitedir}/mysqlx
+%{py3_sitedir}/mysqlx/py.typed
 %{py3_sitedir}/mysqlx/*.py
 %dir %{py3_sitedir}/mysqlx/__pycache__
 %{py3_sitedir}/mysqlx/__pycache__/*.py[co]

@@ -1,6 +1,6 @@
---- mysql-connector-python-8.0.11/tests/mysqld.py~	2018-04-10 14:35:30.000000000 +0200
-+++ mysql-connector-python-8.0.11/tests/mysqld.py	2018-05-28 08:25:18.652587431 +0200
-@@ -184,35 +184,7 @@ class MySQLServerBase(object):
+--- mysql-connector-python-8.0.33-src/tests/mysqld.py~	2023-03-30 12:58:04.000000000 +0200
++++ mysql-connector-python-8.0.33-src/tests/mysqld.py	2024-03-21 13:15:47.909993896 +0100
+@@ -181,30 +181,7 @@ class MySQLServerBase:
          Raises MySQLBootstrapError when something fails.
          """
  
@@ -11,28 +11,23 @@
 -            if self._sbindir:
 -                break
 -            for afile in files:
--                if (afile == EXEC_MYSQLD and
--                        os.access(os.path.join(root, afile), 0)):
+-                if afile == EXEC_MYSQLD and os.access(os.path.join(root, afile), 0):
 -                    self._sbindir = root
--                    LOGGER.debug("Located {} in {}".format(
--                        EXEC_MYSQLD, self._sbindir))
+-                    LOGGER.debug("Located {} in {}".format(EXEC_MYSQLD, self._sbindir))
 -                    try:
 -                        files_to_find.remove(EXEC_MYSQLD)
 -                    except ValueError:
--                            pass
--                elif (afile == EXEC_MYSQL and
--                        os.access(os.path.join(root, afile), 0)):
+-                        pass
+-                elif afile == EXEC_MYSQL and os.access(os.path.join(root, afile), 0):
 -                    self._bindir = root
--                    LOGGER.debug("Located {} in {}".format(
--                        EXEC_MYSQL, self._bindir))
+-                    LOGGER.debug("Located {} in {}".format(EXEC_MYSQL, self._bindir))
 -                    try:
 -                        files_to_find.remove(EXEC_MYSQLD)
 -                    except ValueError:
--                            pass
+-                        pass
 -
 -                if not files_to_find:
 -                    break
--
 +        self._sbindir = '/usr/sbin'
  
          if not self._sbindir:
