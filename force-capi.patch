@@ -1,20 +1,52 @@
---- mysql-connector-python-8.0.23/cpydist/__init__.py~	2020-12-16 07:04:09.000000000 +0100
-+++ mysql-connector-python-8.0.23/cpydist/__init__.py	2022-04-28 14:15:47.843105028 +0200
-@@ -112,7 +112,7 @@ class BaseCommand(Command):
+--- a/mysql-connector-python/cpydist/__init__.py~	2024-09-27 14:37:07.000000000 +0200
++++ b/mysql-connector-python/cpydist/__init__.py	2024-12-19 13:34:38.733271701 +0100
+@@ -129,7 +129,7 @@ class BaseCommand(Command):
      user_options = COMMON_USER_OPTIONS + CEXT_OPTIONS
      boolean_options = ["debug", "byte_code_only", "keep_temp", "skip_vendor"]
  
 -    with_mysql_capi = None
-+    with_mysql_capi = "/usr"
-     with_mysqlxpb_cext = False
++    with_mysql_capi = os.environ.get("MYSQL_CAPI")
  
      with_openssl_include_dir = None
-@@ -135,7 +135,7 @@ class BaseCommand(Command):
+     with_openssl_lib_dir = None
+@@ -152,7 +152,7 @@ class BaseCommand(Command):
  
      def initialize_options(self):
          """Initialize the options."""
 -        self.with_mysql_capi = None
-+        self.with_mysql_capi = "/usr"
-         self.with_mysqlxpb_cext = False
++        self.with_mysql_capi = os.environ.get("MYSQL_CAPI")
          self.with_openssl_include_dir = None
          self.with_openssl_lib_dir = None
+         self.extra_compile_args = None
+@@ -188,8 +188,7 @@ class BaseCommand(Command):
+         if not self.skip_vendor:
+             self.skip_vendor = os.environ.get("SKIP_VENDOR", False)
+ 
+-        if not self.with_mysql_capi:
+-            self.skip_vendor = True
++        self.skip_vendor = True
+ 
+         cmd_build_ext = self.distribution.get_command_obj("build_ext")
+         cmd_build_ext.with_mysql_capi = self.with_mysql_capi
+--- a/mysqlx-connector-python/cpydist/__init__.py~	2024-09-27 14:37:07.000000000 +0200
++++ b/mysqlx-connector-python/cpydist/__init__.py	2024-12-19 14:00:10.039938355 +0100
+@@ -109,6 +109,8 @@ ABSL_LIBS = (
+     "absl_statusor",
+     "absl_bad_optional_access",
+ )
++# don't link with these
++ABSL_LIBS = ()
+ # Load version information
+ VERSION = [999, 0, 0, "a", 0]
+ VERSION_TEXT = "999.0.0"
+@@ -298,6 +298,9 @@ class BuildExt(build_ext, BaseCommand):
+         if not os.path.exists(self._build_protobuf_lib_dir):
+             os.makedirs(self._build_protobuf_lib_dir)
+ 
++        # copying is crazy
++        return
++
+         self.log.info("Copying Protobuf libraries")
+ 
+         # load protobuf-related static libraries
+

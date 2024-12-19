@@ -1,5 +1,5 @@
---- mysql-connector-python-8.0.33-src/tests/mysqld.py~	2023-03-30 12:58:04.000000000 +0200
-+++ mysql-connector-python-8.0.33-src/tests/mysqld.py	2024-03-21 13:15:47.909993896 +0100
+--- mysql-connector-python-8.0.33-src/mysql-connector-python/tests/mysqld.py~	2023-03-30 12:58:04.000000000 +0200
++++ mysql-connector-python-8.0.33-src/mysql-connector-python/tests/mysqld.py	2024-03-21 13:15:47.909993896 +0100
 @@ -181,30 +181,7 @@ class MySQLServerBase:
          Raises MySQLBootstrapError when something fails.
          """
