@@ -12,12 +12,12 @@ Summary(pl.UTF-8):	Protokół kliencki MySQL zaimplementowany w Pythonie
 Name:		python3-%{pname}
 # check documentation to see which version is GA (we don't want devel releases)
 # https://dev.mysql.com/downloads/connector/python/
-Version:	9.1.0
+Version:	9.2.0
 Release:	1
 License:	GPL v2
 Group:		Libraries/Python
 Source0:	http://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-%{version}-src.tar.gz
-# Source0-md5:	eac77c9e7f705e501c1fbdbc5a66a835
+# Source0-md5:	608a884c2b8290f429276afe3c6113e9
 #Source0:	https://pypi.debian.net/mysql-connector-python/mysql-connector-python-%{version}.tar.gz
 Patch0:		force-capi.patch
 Patch1:		tests.patch
@@ -49,8 +49,8 @@ biblioteki MySQL-a, ani żadna kompilacja.
 
 %prep
 %setup -q -n mysql-connector-python-%{version}-src
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 export MYSQL_CAPI=%{_bindir}/mysql_config%{mysql_ver}
