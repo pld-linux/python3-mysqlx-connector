@@ -6,7 +6,7 @@
 
 %define		mysql_ver	8.4
 
-%define		pname	mysql-connector
+%define		pname	mysqlx-connector
 Summary:	The MySQL Client/Protocol implemented in Python
 Summary(pl.UTF-8):	Protokół kliencki MySQL zaimplementowany w Pythonie
 Name:		python3-%{pname}
@@ -36,16 +36,10 @@ Requires:	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-MySQL Connector/Python is implementing the MySQL Client/Server
-protocol completely in Python. No MySQL libraries are needed, and no
-compilation is necessary to run this Python DB API v2.0 compliant
-driver.
+MySQLX Connector/Python is implementing the the MySQL X DevAPI protocol.
 
 %description -l pl.UTF-8
-MySQL Connector/Python to protokół klient-serwer MySQL-a
-zaimplementowany całkowicie w Pythonie. Do uruchomienia tego
-sterownika, zgodnego z DB API v2.0 Pythona, nie są potrzebne
-biblioteki MySQL-a, ani żadna kompilacja.
+MySQLX Connector/Python to implementacja protokołu MySQL X DevAPI.
 
 %prep
 %setup -q -n mysql-connector-python-%{version}-src
@@ -55,9 +49,7 @@ biblioteki MySQL-a, ani żadna kompilacja.
 %build
 export MYSQL_CAPI=%{_bindir}/mysql_config%{mysql_ver}
 
-for t in mysql mysqlx; do
-echo "*** Doing ${t}-connector-python"
-cd ${t}-connector-python
+cd mysqlx-connector-python
 
 %py3_build
 %if %{with tests}
@@ -71,7 +63,6 @@ export PYTHONPATH="$(pwd)/$(echo build-3/lib*)"
 %endif
 
 cd ..
-done
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -87,12 +78,9 @@ export MYSQLXPB_PROTOBUF_LIB_DIR=%{_libdir}
 
 export MYSQL_CAPI=%{_bindir}/mysql_config%{mysql_ver}
 
-for t in mysql mysqlx; do
-echo "*** Doing ${t}-connector-python"
-cd ${t}-connector-python
+cd mysqlx-connector-python
 %py3_install
 cd ..
-done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -100,8 +88,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES.txt README.txt
-%attr(755,root,root) %{py3_sitedir}/_mysql_connector.cpython-*.so
 %attr(755,root,root) %{py3_sitedir}/_mysqlxpb.cpython-*.so
-%{py3_sitedir}/mysql*.egg-info
-%{py3_sitedir}/mysql
+%{py3_sitedir}/mysqlx*.egg-info
 %{py3_sitedir}/mysqlx
