@@ -1,0 +1,11 @@
+--- mysql-connector-python-9.3.0-src/mysqlx-connector-python/setup.py~	2025-03-26 08:48:12.000000000 +0100
++++ mysql-connector-python-9.3.0-src/mysqlx-connector-python/setup.py	2025-09-02 02:09:50.383330415 +0200
+@@ -160,7 +160,7 @@
+         ext_modules=EXTENSIONS,
+         cmdclass=COMMAND_CLASSES,
+         python_requires=">=3.9",
+-        install_requires=["protobuf==4.25.3"],
++        install_requires=["protobuf>=4.25.3"],
+         extras_require={
+             "dns-srv": ["dnspython==2.6.1"],
+             "compression": ["lz4>=2.1.6,<=4.3.2", "zstandard==0.23.0"],
