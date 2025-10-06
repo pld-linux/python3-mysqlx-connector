@@ -9,3 +9,16 @@
          extras_require={
              "dns-srv": ["dnspython==2.6.1"],
              "compression": ["lz4>=2.1.6,<=4.3.2", "zstandard==0.23.0"],
+--- mysql-connector-python-9.3.0-src/mysqlx-connector-python/cpydist/__init__.py~	2025-10-06 11:08:23.000000000 +0200
++++ mysql-connector-python-9.3.0-src/mysqlx-connector-python/cpydist/__init__.py	2025-10-06 11:08:49.876663704 +0200
+@@ -390,8 +390,8 @@
+             ext.libraries.extend(ABSL_LIBS)
+ 
+             if os.name != "nt":
+-                # Add -std=c++14 needed for Protobuf 4.25.3
+-                ext.extra_compile_args.append("-std=c++14")
++                # Add -std=c++17 needed for Protobuf 4.25.3
++                ext.extra_compile_args.append("-std=c++17")
+             self._run_protoc()
+ 
+             # Suppress unknown pragmas
