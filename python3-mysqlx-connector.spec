@@ -37,7 +37,7 @@ BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with tests}
 BuildRequires:	mysql
 %endif
-Requires:	python-modules
+Requires:	python3-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
